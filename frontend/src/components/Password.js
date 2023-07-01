@@ -4,7 +4,7 @@ import Avatar from "../assets/avatar.png";
 import styles from "../styles/Style.module.css";
 import { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
-import { passwordValidate } from "../helper/Validate";
+import { passwordValidate } from "../helper/validate";
 
 const Password = () => {
   const formik = useFormik({

@@ -4,7 +4,7 @@ import Avatar from "../assets/avatar.png";
 import styles from "../styles/Style.module.css";
 import { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
-import { usernameValidate } from "../helper/Validate";
+import { usernameValidate } from "../helper/validate";
 
 const Username = () => {
   const formik = useFormik({

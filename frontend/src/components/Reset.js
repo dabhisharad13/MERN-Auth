@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../styles/Style.module.css";
 import { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
-import { resetPasswordValidate } from "../helper/Validate";
+import { resetPasswordValidate } from "../helper/validate";
 
 const Reset = () => {
   const formik = useFormik({
