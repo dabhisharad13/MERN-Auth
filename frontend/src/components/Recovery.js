@@ -7,7 +7,7 @@ const Recovery = () => {
       <div className="flex justify-center items-center h-screen">
         <div className={styles.glass}>
           <div className="title flex flex-col items-center">
-            <h4 className="text-5xl font-bold"> Recovery</h4>
+            <h4 className="text-5xl font-bold">Recovery</h4>
           </div>
 
           <form className="pt-20" action="">

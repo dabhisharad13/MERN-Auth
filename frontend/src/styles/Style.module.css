@@ -18,7 +18,7 @@
 }
 
 .btn {
-  @apply border bg-fuchsia-500 w-2/4 py-4 rounded-lg  text-gray-50 text-xl shadow-sm text-center;
+  @apply border bg-fuchsia-500 w-2/4 mt-4 py-4 rounded-lg  text-gray-50 text-xl shadow-sm text-center;
 }
 
 .btn:hover {
