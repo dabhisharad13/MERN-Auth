@@ -1,10 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Avatar from "../assets/avatar.png";
 import styles from "../styles/Style.module.css";
 import { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
-import { passwordValidate } from "../helper/Validate";
+import { resetPasswordValidate } from "../helper/Validate";
 
 const Reset = () => {
   const formik = useFormik({
@@ -12,7 +10,7 @@ const Reset = () => {
       newPassword: "",
       confirmPassword: "",
     },
-    validate: passwordValidate,
+    validate: resetPasswordValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
@@ -29,7 +27,7 @@ const Reset = () => {
             <h4 className="text-5xl font-bold"> Reset</h4>
           </div>
 
-          <form className="py-1" action="" onSubmit={formik.handleSubmit}>
+          <form className="py-1" onSubmit={formik.handleSubmit}>
             <div className=" pt-20 textbox flex flex-col items-center gap-6">
               <input
                 {...formik.getFieldProps("newPassword")}

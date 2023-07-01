@@ -12,8 +12,26 @@ export async function passwordValidate(values) {
   return errors;
 }
 
+export async function resetPasswordValidate(values) {
+  const errors = resetPassword({}, values);
+
+  return errors;
+}
+
+function resetPassword(errors = {}, values) {
+  if (!values.newPassword || !values.confirmPassword) {
+    errors.exist = toast.error("Password cannot be empty!");
+  } else if (values.newPassword !== values.confirmPassword) {
+    errors.exist = toast.error("Password not matching!");
+  }
+
+  return errors;
+}
+
 function passwordVerify(errors = {}, values) {
   if (!values.password || values.password.includes(" ")) {
+    console.log("HAHA");
+
     errors.password = toast.error("Password cannot be Empty!");
   } else if (values.password.length < 4) {
     errors.password = toast.error("Password too short");
