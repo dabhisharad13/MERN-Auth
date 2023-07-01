@@ -8,5 +8,5 @@
 
 body {
     background: #dcdce6;
-    background: url('https://static.vecteezy.com/system/resources/previews/023/871/046/non_2x/white-clean-crumpled-paper-background-horizontal-crumpled-empty-paper-template-for-posters-and-banners-illustration-vector.jpg');
+    background-image: url('./assets/Background.png');
 }
