@@ -30,8 +30,6 @@ function resetPassword(errors = {}, values) {
 
 function passwordVerify(errors = {}, values) {
   if (!values.password || values.password.includes(" ")) {
-    console.log("HAHA");
-
     errors.password = toast.error("Password cannot be Empty!");
   } else if (values.password.length < 4) {
     errors.password = toast.error("Password too short");
@@ -46,4 +44,24 @@ function validateUsername(error = {}, values) {
   }
 
   return error;
+}
+/** validate email */
+function emailVerify(error = {}, values) {
+  if (!values.email) {
+    error.email = toast.error("Email Required...!");
+  } else if (values.email.includes(" ")) {
+    error.email = toast.error("Wrong Email...!");
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    error.email = toast.error("Invalid email address...!");
+  }
+
+  return error;
+}
+/** validate register form */
+export async function registerValidation(values) {
+  const errors = validateUsername({}, values);
+  passwordVerify(errors, values);
+  emailVerify(errors, values);
+
+  return errors;
 }

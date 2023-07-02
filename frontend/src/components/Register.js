@@ -4,8 +4,9 @@ import Avatar from "../assets/avatar.png";
 import styles from "../styles/Style.module.css";
 import { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
-import { passwordValidate } from "../helper/validate";
+import { registerValidation } from "../helper/validate";
 import convertToBase64 from "../helper/convert.js";
+
 const Register = () => {
   const [img, setImg] = useState();
 
@@ -15,7 +16,7 @@ const Register = () => {
       username: "",
       password: "",
     },
-    validate: passwordValidate,
+    validate: registerValidation,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
