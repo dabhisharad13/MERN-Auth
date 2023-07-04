@@ -1,6 +1,7 @@
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import connect from "./db/connection.js";
 
 const app = express();
 
@@ -9,11 +10,19 @@ app.use(cors());
 app.use(morgan("tiny"));
 
 app.get("/", (req, res) => {
-  console.log(req);
-
-  return res.json("hello");
+  return res.json("Home");
 });
 
-app.listen(8080, () => {
-  console.log("Server running");
-});
+connect()
+  .then(() => {
+    try {
+      app.listen(8080, () => {
+        console.log("Server running");
+      });
+    } catch (error) {
+      console.log("Cannot connect to server");
+    }
+  })
+  .catch((error) => {
+    console.log("Invalide DB connection");
+  });
