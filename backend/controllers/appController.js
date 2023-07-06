@@ -185,7 +185,22 @@ body: {
 }
 */
 export async function updateUser(req, res) {
-  res.json("UPDATE USER");
+  try {
+    const id = req.query.id;
+
+    if (id) {
+      const body = req.body;
+      UserModel.updateOne({ _id: id }, body)
+        .then((data) => {
+          return res.status(201).send({ msg: "Record Updated...!!" });
+        })
+        .catch((error) => {
+          return res.status(201).send({ error: "User not found" });
+        });
+    }
+  } catch (error) {
+    return res.status(401).send({ error: "User not found" });
+  }
 }
 
 /** GET: http://localhost:8080/api/generateOTP */

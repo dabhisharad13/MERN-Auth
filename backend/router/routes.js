@@ -14,7 +14,7 @@ router.route("/authenticate").post((req, res) => res.end());
 router.route("/login").post(controller.verifyUser, controller.login);
 
 /** PUT Method */
-router.route("/updateuser").put();
+router.route("/updateuser").put(controller.updateUser);
 router.route("/resetPassword").put();
 
 export default router;
