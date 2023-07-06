@@ -3,6 +3,24 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ENV from "../config.js";
 
+/**middleware to verify the user */
+export async function verifyUser(req, res, next) {
+  try {
+    const { username } = req.method == "GET" ? req.query : req.body;
+
+    //check for existing user
+    let exist = await UserModel.findOne({ username });
+    if (!exist) {
+      return res
+        .status(404)
+        .send({ error: `No user found with username: ${username}` });
+    }
+    next();
+  } catch (error) {
+    return res.status(404).send({ error: "Authentication Error" });
+  }
+}
+
 /** POST: http://localhost:8080/api/register 
  * @param : {
   "username" : "example123",
@@ -100,7 +118,7 @@ export async function login(req, res) {
           .compare(password, user.password)
           .then((passwordCheck) => {
             if (!passwordCheck) {
-              return res.status(400).send({ error: "Don't have password" });
+              return res.status(400).send({ error: "Incorrect Password!" });
             }
 
             // create jwt token
