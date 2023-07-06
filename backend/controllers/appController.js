@@ -1,3 +1,6 @@
+import UserModel from "../model/User.model.js";
+import bcrypt from "bcrypt";
+
 /** POST: http://localhost:8080/api/register 
  * @param : {
   "username" : "example123",
@@ -12,7 +15,72 @@
 */
 
 export async function register(req, res) {
-  res.json("REGISTER");
+  try {
+    const { username, password, profile, email } = req.body;
+
+    const checkUser = new Promise((resolve, reject) => {
+      UserModel.findOne({ username })
+        .then((result) => {
+          if (result) {
+            reject({ error: "Username already exist" });
+          }
+
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+
+    const checkEmail = new Promise((resolve, reject) => {
+      UserModel.findOne({ email })
+        .then((result) => {
+          if (result) {
+            reject({ error: "Email already exist" });
+          }
+
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+
+    Promise.all([checkUser, checkEmail])
+      .then(() => {
+        if (password) {
+          bcrypt
+            .hash(password, 10)
+            .then((hashedpassword) => {
+              const newUser = new UserModel({
+                username,
+                email,
+                password: hashedpassword,
+                profile: profile || "",
+              });
+
+              newUser
+                .save()
+                .then((result) => {
+                  return res.status(201).send({ msg: "User registered" });
+                })
+                .catch((error) => {
+                  return res.status(501).send({ error });
+                });
+            })
+            .catch((error) => {
+              return res.status(500).send({
+                error: "Unable to hash password",
+              });
+            });
+        }
+      })
+      .catch((error) => {
+        return res.status(500).send({ error });
+      });
+  } catch (error) {
+    return res.status(500).send({ error });
+  }
 }
 
 /** POST: http://localhost:8080/api/login 
