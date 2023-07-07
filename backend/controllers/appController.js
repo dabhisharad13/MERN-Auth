@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ENV from "../config.js";
 
+
 /**middleware to verify the user */
 export async function verifyUser(req, res, next) {
   try {
@@ -186,11 +187,11 @@ body: {
 */
 export async function updateUser(req, res) {
   try {
-    const id = req.query.id;
+    const {userId} = req.user;
 
-    if (id) {
+    if (userId) {
       const body = req.body;
-      UserModel.updateOne({ _id: id }, body)
+      UserModel.updateOne({ _id: userId }, body)
         .then((data) => {
           return res.status(201).send({ msg: "Record Updated...!!" });
         })

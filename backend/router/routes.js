@@ -1,5 +1,7 @@
 import { Router } from "express";
 import * as controller from "../controllers/appController.js";
+import Auth from "../middleware/auth.js";
+
 const router = Router();
 
 /** GET Method */
@@ -14,7 +16,7 @@ router.route("/authenticate").post((req, res) => res.end());
 router.route("/login").post(controller.verifyUser, controller.login);
 
 /** PUT Method */
-router.route("/updateuser").put(controller.updateUser);
+router.route("/updateuser").put(Auth, controller.updateUser);
 router.route("/resetPassword").put();
 
 export default router;
